@@ -1,38 +1,53 @@
 from django.urls import path
 
-from . import apps, views
+from . import apps
+from .views import admin, profile, settings, stars
 
 app_name = apps.UserConfig.name
 
 urlpatterns = [
-    path("", views.index, name="me"),
-    path("<int:pk>", views.index, name="profile"),
-    path("<int:pk>/image", views.image, name="image"),
-    path("favorites", views.favorites, name="favorites"),
+    path("", profile.Index.as_view(), name="me"),
+    path("<int:pk>", profile.Index.as_view(), name="profile"),
+    path("stars", stars.index, name="stars"),
+    path("<int:pk>/stars", stars.index, name="stars"),
+    path("settings", settings.Index.as_view(), name="settings"),
+    path("shares", profile.Shares.as_view(), name="shares"),
+    path("settings/toggle", settings.Toggle.as_view(), name="toggle"),
+    path("stars/edit", stars.edit, name="stars_edit"),
+    path("groups", profile.UserGroups.as_view(), name="groups"),
+    path("<int:pk>/groups", profile.UserGroups.as_view(), name="groups"),
+    path("history", profile.History.as_view(), name="history"),
+    path("<int:pk>/history", profile.History.as_view(), name="history"),
+    path("subscriptions", profile.Subscriptions.as_view(), name="subscriptions"),
     path(
-        "favorites_create_folder",
-        views.favorites_create_folder,
-        name="favorites_create_folder",
+        "<int:pk>/subscriptions", profile.Subscriptions.as_view(), name="subscriptions"
     ),
     path(
-        "favorites_delete_folder",
-        views.favorites_delete_folder,
-        name="ffavorites_delete_folder",
+        "stars/folder/create",
+        stars.create_folder,
+        name="stars_create_folder",
     ),
     path(
-        "favorites_reorder_folder",
-        views.favorites_reorder_folder,
-        name="favorites_reorder_folder",
+        "stars/folder/<int:pk>/edit",
+        stars.edit_folder,
+        name="stars_edit_folder",
     ),
-    path("favorites_reorder", views.favorites_reorder, name="favorites_reorder"),
     path(
-        "favorites_change_folder",
-        views.favorites_change_folder,
-        name="favorites_change_folder",
+        "stars/folder/<int:pk>/delete",
+        stars.delete_folder,
+        name="fstars_delete_folder",
     ),
-    path("roles", views.roles, name="roles"),
-    path("roles/change", views.change_role, name="change_role"),
     path(
-        "preference/video/<int:state>", views.preference_video, name="preference_video"
+        "stars/folder/reorder",
+        stars.reorder_folder,
+        name="stars_reorder_folder",
     ),
+    path("stars/reorder", stars.reorder, name="stars_reorder"),
+    path(
+        "stars/folder/change",
+        stars.change_folder,
+        name="stars_change_folder",
+    ),
+    path("roles", admin.roles, name="roles"),
+    path("settings/disable_admin", admin.disable_admin, name="disable_admin"),
 ]
