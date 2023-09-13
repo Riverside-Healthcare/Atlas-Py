@@ -3,6 +3,10 @@
 
 ## What is Atlas Py?
 
+    This project was a working proof of concept for a Python verion of Atlas Library.
+    The future of Atlas Libary will most likely use concepts from this repo but with a different frontend.
+    Until that project happens this repo will be archived.
+
 This is a Python version of the [Atlas BI Library](https://github.com/atlas-bi/atlas-bi-library) DotNet webapp. It is currently under development.
 
 In our love of open source we felt the need for a version of the Atlas BI Library webapp that used completely open source tools. This version of the app will effectively mirror the DotNet version in functionality and appearance, but will be installed on Ubuntu server.
